@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>page</title>
+    <style type="text/css">
+        p{
+            text-indent: 28px;
+        }
+        
+    </style>
+</head>
+<body>
+
+{#<h1>{{ article }}</h1>#}
+    {% if article %}
+        <h3 style="text-align: center;">{{ article.title }}</h3>
+        <br>
+        <div>
+            <span style="float: right;">{{ article.public_time }}</span>
+            <span style="float: left;">{{ article.author }}</span>
+        </div>
+        <br>
+        <p>{{ article.content }}</p>
+        <img src="/static{{ article.image }}" alt="">
+    {% else %}
+        <p>soryy, con't find this article</p>
+    {% endif %}
+    <p>
+      <a href="/page_list/">return page_list window</a>
+    </p>
+
+
+
+
+</body>
+</html>

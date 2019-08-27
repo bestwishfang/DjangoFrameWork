@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TemplateLabel</title>
+</head>
+<body>
+
+    <h1>xuan ran biao qian</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>姓名</th><th>年龄</th><th>性别</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in teacher %}
+                    <tr>
+                        <td>{{ t.name }}</td><td>{{ t.age }}</td><td>{{ t.gender }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    <hr>
+        {% for c in course %}
+            {{ forloop }}
+                <p style="color: slateblue;">
+                    <span>课程名：{{ c.name }}</span>
+                    <span>周期:{{ c.period }}</span>
+                    <span>费用：{{ c.fee }}</span>
+                </p>
+            {% for t in teacher %}
+{#                {{ forloop }}#}
+                <br>
+                {{ forloop.parentloop }}
+                <br>
+                {{ forloop.counter }}
+                {{ forloop.revcounter0 }}
+                {{ forloop.revcounter }}
+
+                {{ forloop.first }}
+                {{ forloop.last }}
+
+                <hr>
+            {% endfor %}
+        {% endfor %}
+
+</body>
+</html>

@@ -19,8 +19,18 @@ from ArticleBlog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    re_path(r'^$', views.index),
     path('index/', views.index),
-    path('login/', views.login),
-    path('show/', views.show),
-    re_path(r'^introduce/(\w+)/(\d{3})$', views.introduce),
+    path('tv/', views.template_variable),
+    path('tl/', views.template_label),
+    
+    path('page_list/', views.page_list),
+    re_path(r'page/(?P<num>\d{1,2})/', views.page)
+    
+    # re_path(r'page/(?P<page>\d{1,2})', views.page_list),
+    # path('login/', views.login),
+    # path('show/', views.show),
+    # re_path(r'^introduce/(\w+)/(\d{3})$', views.introduce),
+
 ]

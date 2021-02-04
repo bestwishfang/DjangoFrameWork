@@ -61,14 +61,17 @@ def login():
     error = ""
     if request.method == "POST":
         form_data = request.form
-        email = form_data.get("email")
+        filed = form_data.get('username')
         password = form_data.get("password")
+        if filed.endswith('.com'):
+            user = User.query.filter_by(email=filed).first()
+        else:
+            user = User.query.filter_by(username=filed).first()
 
-        user = User.query.filter_by(email=email).first()
         if user:
             db_password = user.password
             if set_pwd(password) == db_password:
-                response = redirect("/main")
+                response = redirect('/')
                 response.set_cookie("username", user.username)
                 response.set_cookie("email", user.email)
                 response.set_cookie("id", str(user.id))
@@ -78,7 +81,16 @@ def login():
                 error = "密码错误"
         else:
             error = "用户名不存在"
-    return render_template("main/login.html", error=error)
+    else:
+        username = request.cookies.get("username")
+        id = request.cookies.get("id", "0")
+        user = User.query.get(int(id))
+        session_username = session.get("username")
+        if user:  # 检测是否有对应id的用户
+            if user.username == username and username == session_username:  # 用户名是否对应
+                return redirect('/')
+
+        return render_template("web/login.html", error=error)
 
 
 @main.route("/logout")
@@ -87,8 +99,8 @@ def logout():
     response.delete_cookie("username")
     response.delete_cookie("email")
     response.delete_cookie("id")
-    session.pop("username")
-    del session["username"]
+    session.pop("username", None)
+    # del session["username"]
     return response
 
 

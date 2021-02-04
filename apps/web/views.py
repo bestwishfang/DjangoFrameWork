@@ -22,17 +22,17 @@ def set_pwd(password):
 def login_valid(func):
     @functools.wraps(func)  # 保留原函数的名称
     def inner(*args, **kwargs):
-        username = request.cookies.get("username")
-        id = request.cookies.get("id", "0")
+        username = request.cookies.get("web_user")
+        id = request.cookies.get("web_id", "0")
         user = WebUser.query.get(int(id))
-        session_username = session.get("username")
+        session_username = session.get("web_user")
         if user:  # 检测是否有对应id的用户
             if user.username == username and username == session_username:  # 用户名是否对应
                 return func(*args, **kwargs)
             else:
-                return redirect("/login")
+                return redirect("/web/login")
         else:
-            return redirect("/login")
+            return redirect("/web/login")
 
     return inner
 
@@ -59,34 +59,46 @@ def login():
     error = ""
     if request.method == "POST":
         form_data = request.form
-        email = form_data.get("email")
+        filed = form_data.get('username')
         password = form_data.get("password")
+        if filed.endswith('.com'):
+            user = WebUser.query.filter_by(email=filed).first()
+        else:
+            user = WebUser.query.filter_by(username=filed).first()
 
-        user = WebUser.query.filter_by(email=email).first()
         if user:
             db_password = user.password
             if set_pwd(password) == db_password:
                 response = redirect("/web")
-                response.set_cookie("username", user.username)
-                response.set_cookie("email", user.email)
-                response.set_cookie("id", str(user.id))
-                session["username"] = user.username
+                response.set_cookie("web_user", user.username)
+                response.set_cookie("web_email", user.email)
+                response.set_cookie("web_id", str(user.id))
+                session["web_user"] = user.username
                 return response
             else:
                 error = "密码错误"
         else:
             error = "用户名不存在"
-    return render_template("web/login.html", error=error)
+    else:
+        username = request.cookies.get("web_user")
+        id = request.cookies.get("id", "0")
+        user = WebUser.query.get(int(id))
+        session_username = session.get("web_user")
+        if user:  # 检测是否有对应id的用户
+            if user.username == username and username == session_username:  # 用户名是否对应
+                return redirect('/web')
+
+        return render_template("web/login.html", error=error)
 
 
 @web.route("/logout")
 def logout():
-    response = redirect("/login/")
-    response.delete_cookie("username")
-    response.delete_cookie("email")
-    response.delete_cookie("id")
-    session.pop("username")
-    del session["username"]
+    response = redirect("/web/login")
+    response.delete_cookie("web_user")
+    response.delete_cookie("web_email")
+    response.delete_cookie("web_id")
+    session.pop("web_user", None)
+    # del session["username"]
     return response
 
 

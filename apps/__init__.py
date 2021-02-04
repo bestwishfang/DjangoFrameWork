@@ -13,7 +13,7 @@ models = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     app.config.from_object('settings.Config')
-    # models.init_app(app)  # models = SQLAlchemy(app) 加载数据库
+    models.init_app(app)  # models = SQLAlchemy(app) 加载数据库
     # csrf.init_app(app)
     from .main import main
     from .web import web

@@ -6,7 +6,7 @@ from flask_migrate import Migrate, MigrateCommand
 app = create_app()
 manage = Manager(app)
 migrate = Migrate(app, models)
-app.secret_key = 'secret'
+app.secret_key = 'personal secret'
 
 manage.add_command('db', MigrateCommand)
 

@@ -20,7 +20,7 @@ def set_pwd(password):
 
 
 def login_valid(func):
-    @functools.wraps(func)  # 保留原函数的名称
+    @functools.wraps(func)  # 保留原函数的名称 endpoint
     def inner(*args, **kwargs):
         username = request.cookies.get("username")
         id = request.cookies.get("id", "0")

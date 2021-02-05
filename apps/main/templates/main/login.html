@@ -10,58 +10,44 @@
     <meta name="author" content="">
 
     <title>Main Login</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/main/css/login.css" rel="stylesheet"/>
+
 
 </head>
 
-<body class="bg-gradient-primary">
 
+<body>
+<!-- /container -->
 <div class="container">
-
-    <div class="card o-hidden border-0 shadow-lg my-5">
-        <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                <div class="col-lg-7">
-                    <div class="p-5">
-                        <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">用户登录!</h1>
-                        </div>
-                        <form class="user" method="post">
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-user" name="username"
-                                       id="exampleInputName" placeholder="用户名或邮箱">
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user" name="password"
-                                           id="exampleInputPassword" placeholder="密码">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12 mb-3 mb-sm-0">
-                                    <p style="color: red">{{ error }}</p>
-                                </div>
-                            </div>
-
-                            <input type="submit" value="登录" class="btn btn-primary btn-user btn-block">
-                            <hr>
-                        </form>
-                        <hr>
-                        <div class="text-center">
-                            <a class="small" href="forgot-password.html">忘记密码?</a>
-                        </div>
-                        <div class="text-center">
-                            <a class="small" href="register">没有账号? 去注册!</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="col">
+        <form class="form-login" action="" method="post">
+            <h3 class="text-center">欢迎登录</h3>
+            <div class="form-group">
+                <label for="id_username">用户名：</label>
+                <input type="text" name='username' class="form-control" id="id_username" placeholder="Username"
+                       autofocus required>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="id_password">密码：</label>
+                <input type="password" name='password' class="form-control" id="id_password" placeholder="Password"
+                       required>
+            </div>
+            <div>
+                <a href="register" class="text-success ">
+                    <ins>新用户注册</ins>
+                </a>
+                <button type="submit" class="btn btn-primary float-right">登录</button>
+            </div>
+        </form>
     </div>
-
 </div>
 
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.15.0/umd/popper.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
 </body>

@@ -1,3 +1,4 @@
+from datetime import datetime
 from .. import models
 
 
@@ -21,3 +22,7 @@ class User(BaseModel):
     username = models.Column(models.String(32))
     password = models.Column(models.String(32))
     email = models.Column(models.String(32))
+    c_time = models.Column(models.DateTime, default=datetime.now)
+
+    def __str__(self):
+        return self.username

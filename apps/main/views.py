@@ -90,7 +90,7 @@ def login():
             if user.username == username and username == session_username:  # 用户名是否对应
                 return redirect('/')
 
-        return render_template("main/login.html", error=error)
+    return render_template("main/login.html", error=error)
 
 
 @main.route("/logout")

@@ -15,3 +15,12 @@ class Config:
 
 class RunConfig(Config):
     DEBUG = False
+
+
+"""
+登录、注册 表单验证
+首页
+
+
+
+"""

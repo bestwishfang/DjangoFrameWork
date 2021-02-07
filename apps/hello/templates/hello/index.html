@@ -1,0 +1,46 @@
+{% extends 'hello/base.html' %}
+
+
+{% block content %}
+<div class="hello-form">
+    <form action="" method="post" class="form" role="form">
+        {{ form.csrf_token }}
+        <div class="form-group required">
+            <label class="form-control-label" for="name">Name</label>
+            <input class="form-control" id="name" name="msg_name" required="" type="text" value="">
+        </div>
+        <div class="form-group required">
+            <label class="form-control-label" for="body">Message</label>
+            <textarea class="form-control" id="body" name="body" required=""></textarea>
+        </div>
+        <div class="form-group required">
+        <!--            <label class="form-control-label" for="captcha">天王盖地虎</label>-->
+        <!--            <input class="form-control" id="captcha" name="captcha" required="" type="text" value="">-->
+        </div>
+        <input class="btn btn-secondary" id="submit" name="submit" type="submit" value="Submit">
+    </form>
+</div>
+<h5>
+    {{ messages|length }} messages
+    <small class="float-right">
+        <a href="#bottom" title="Go Bottom">&darr;</a>
+    </small>
+</h5>
+<div class="list-group">
+    {% for message in messages %}
+    <a class="list-group-item list-group-item-action flex-column">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1 text-success">{{ message.msg_name }}
+                <small class="text-muted"> #{{ loop.revindex }}</small>
+            </h5>
+            <small data-toggle="tooltip" data-placement="top"
+                   data-timestamp="{{ message.c_time.strftime('%Y-%m-%dT%H:%M:%SZ') }}"
+                   data-delay="500">
+
+            </small>
+        </div>
+        <p class="mb-1">{{ message.body }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

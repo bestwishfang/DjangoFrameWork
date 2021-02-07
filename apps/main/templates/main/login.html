@@ -21,7 +21,8 @@
 <!-- /container -->
 <div class="container">
     <div class="col">
-        <form class="form-login" action="" method="post">
+        <form class="form-login" action="/login" method="post">
+            {{ form.csrf_token }}
             {% if error %}
             <div class="alert alert-warning">{{ error }}</div>
             {% endif %}

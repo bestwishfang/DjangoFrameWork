@@ -9,6 +9,8 @@ from flask import render_template, redirect
 
 from . import main, main_api
 from .models import User
+from .forms import RegisterForm, LoginForm
+from settings import EMAIL_PATTERN
 
 
 def set_pwd(password):
@@ -42,7 +44,10 @@ def register():
     """
     form表单提交的数据由request.form 接收
     """
+    form = RegisterForm()
     if request.method == "POST":
+        data = request.form
+        print(f'data: \n{data}')
         username = request.form.get("username")
         password = request.form.get("password")
         email = request.form.get("email")
@@ -51,19 +56,20 @@ def register():
         user.password = set_pwd(password)
         user.email = email
         user.save()
-        return render_template("main/login.html")
+        return redirect('/login')
 
-    return render_template("main/register.html")
+    return render_template("main/register.html", form=form)
 
 
-@main.route("/login", methods=["get", "post"])
+@main.route("/login", methods=['GET', 'POST'])
 def login():
     error = ""
+    form = LoginForm()
     if request.method == "POST":
         form_data = request.form
         filed = form_data.get('username')
         password = form_data.get("password")
-        if filed.endswith('.com'):
+        if EMAIL_PATTERN.search(filed):
             user = User.query.filter_by(email=filed).first()
         else:
             user = User.query.filter_by(username=filed).first()
@@ -90,7 +96,7 @@ def login():
             if user.username == username and username == session_username:  # 用户名是否对应
                 return redirect('/')
 
-    return render_template("main/login.html", error=error)
+    return render_template("main/login.html", error=error, form=form)
 
 
 @main.route("/logout")

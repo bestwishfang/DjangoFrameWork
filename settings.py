@@ -1,5 +1,7 @@
 import os
+import re
 
+EMAIL_PATTERN = re.compile(r'^\w+@\w+(\.\w+){0,1}\.(com|cn|net|hk)$')
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 STATICFILES_DIR = os.path.join(BASE_DIR, 'static')
 

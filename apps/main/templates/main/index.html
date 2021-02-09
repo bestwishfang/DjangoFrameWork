@@ -23,7 +23,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $("a").click(function(){
-            alert("我的第一个jQquery脚本");
+            alert("Test jQquery scripts");
         });
     });
     //在js简单造数据
@@ -34,11 +34,6 @@
     });
     //和JQ一起使用
     $(function (){
-        $.ajax({
-            url: "http://g.cn",
-        }).done(function(data,status,xhr){
-            console.log(data);
-        });
         $.ajax({
             url: "http://g.cn",
             type: "GET",

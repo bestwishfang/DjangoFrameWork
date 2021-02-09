@@ -7,15 +7,55 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ url_for('static', filename='main/image/favicon.ico') }}">
     <title>Main Index Page</title>
+    <script type="text/javascript" src="{{ url_for('static', filename='main/js/jquery-3.5.1.min.js') }}"></script>
 </head>
 <body>
 
 <h1>Hello Main Index!</h1>
 <div>
-    
+    <a href="">Test Jquery</a>
 </div>
 
 <script type="text/javascript" src="{{ url_for('static', filename='main/js/index.js') }}"></script>
+
+<script src="http://mockjs.com/dist/mock.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("a").click(function(){
+            alert("我的第一个jQquery脚本");
+        });
+    });
+    //在js简单造数据
+    Mock.mock('http://g.cn',{
+        'name':'@NAME',
+        'color':'@COLOR',
+        'email':'@EMAIL'
+    });
+    //和JQ一起使用
+    $(function (){
+        $.ajax({
+            url: "http://g.cn",
+        }).done(function(data,status,xhr){
+            console.log(data);
+        });
+        $.ajax({
+            url: "http://g.cn",
+            type: "GET",
+            data: "",
+            success: function (data){
+                console.log("+++++++++++++++===");
+                console.log(data);
+            },
+            error: function (error){
+                console.log("======================");
+                console.log(error);
+            }
+        });
+    });
+
+
+</script>
 
 </body>
 </html>

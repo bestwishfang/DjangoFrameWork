@@ -1,0 +1,44 @@
+version: 1
+
+formatters:
+  simple:
+    format: '[%(asctime)s] %(levelname)s || Module: %(module)s, Function: %(funcName)s, Line: %(lineno)d || %(message)s'
+    datefmt:
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+
+#  console_err:
+#    class: logging.StreamHandler
+#    level: ERROR
+#    formatter: simple
+#    stream: ext://sys.stderr
+
+  all_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: simple
+    filename: server.log
+    maxBytes: 10485760 # 10MB
+    backupCount: 20
+    encoding: utf8
+
+#loggers:
+#  LogDemo:
+#    level: DEBUG
+#    handlers:
+#      - console
+#      - console_err
+#      - all_file_handler
+#    propagate: no
+
+root:
+  level: DEBUG
+  handlers:
+    - console
+    - all_file_handler
+#    - console_err
